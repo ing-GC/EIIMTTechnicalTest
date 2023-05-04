@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -49,6 +50,7 @@ class User extends Authenticatable
 
         static::saving(function ($user) {
             $user->age = $user->birthday->age;
+            $user->password = Hash::make($user->password);
         });
     }
 }
